@@ -1,0 +1,54 @@
+<div class="section_header foldable orange">
+    <span> <i class="fas fa-magnifying-glass"></i>查詢代碼</span>
+    <i class="fas fa-angle-up"></i>
+</div>
+<div class="section_content">
+    <div class="tracking_section_entry section_entry">
+        <label> {{ order?.order_number }}</label>
+    </div>
+</div>
+
+<div class="section_header foldable">
+    <span> <i class="fas fa-truck"></i> 貨態追蹤</span>
+    <i class="fas fa-angle-up"></i>
+</div>
+
+
+<div class="section_content">
+    <div class="order_status_entry" *ngFor="let status of order?.status" >
+        <div class="tracking_section_entry section_entry">
+            <label>{{ status.date }}</label>
+            <span class="order_status">{{ status.status }}</span>
+        </div>
+    </div>
+</div>
+<div class="section_header foldable red">
+    <span> <i class="fas fa-store"></i> 取貨資訊</span>
+    <i class="fas fa-angle-up"></i>
+</div>
+<div class="section_content">
+    <div class="tracking_section_entry section_entry">
+        <label>取貨門市</label>
+        <span class="order_status">{{ order?.store_name }}</span>
+    </div>
+    <div class="tracking_section_entry section_entry">
+        <label>取貨門市地址</label>
+        <span class="order_status">{{ order?.store_address }}</span>
+    </div>
+    <div class="tracking_section_entry section_entry">
+        <label>取貨截止日</label>
+        <span class="order_status">{{ order?.pickup_deadline }}</span>
+    </div>
+</div>
+<div class="section_header foldable">
+    <span> <i class="fas fa-circle-dollar-to-slot"></i> 取貨資訊</span>
+    <i class="fas fa-angle-up"></i>
+</div>
+<div class="section_content">
+    <div class="tracking_section_entry section_entry">
+        <label>付款狀態</label>
+        <span class="order_status">{{ order?.payment_type }}</span>
+    </div>
+</div>
+
+<input type='button' class="action_button" (click)="goBack()" value="返回">

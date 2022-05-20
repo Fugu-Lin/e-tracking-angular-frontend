@@ -1,1 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+html {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* font-size: 10px; */
+}
+
+body{
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+  }
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+@media (min-width: 858px) {
+    html {
+        font-size: 12px;
+    }
+}
+ 
+@media (min-width: 780px) {
+    html {
+        font-size: 11px;
+    }
+}
+ 
+@media (min-width: 702px) {
+    html {
+        font-size: 10px;
+    }
+}
+ 
+@media (min-width: 624px) {
+    html {
+        font-size: 9px;
+    }
+}
+ 
+@media (max-width: 623px) {
+    html {
+        font-size: 8px;
+    }
+}
+
+.primary_visual{
+    background-image: url('assets/11.png');
+    height: 15vh;
+    width: 100%;
+    background-size: 100% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.none {
+    display: none !important;
+}
+
+a{
+    color:black;
+}
+
+label{
+    font-weight:400;
+}

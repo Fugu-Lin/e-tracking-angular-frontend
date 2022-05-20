@@ -1,0 +1,79 @@
+<div class="container">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" #inputListingRef>
+		<div class="order_number_listing" formArrayName="fileds">
+			<div *ngFor="let quantity of fileds().controls; let i=index" [formGroupName]="i">
+				<div class="entry">
+					<input type="text" class="form-control" formControlName="orderNumber" placeholder="請輸入貨運編號">
+					<div class="trash_div" (click)="removeInputFiled(i)"><i class="far fa-trash-alt" aria-hidden="true"></i></div>
+				</div>
+			</div>
+			<div class="form-entry insert_option business_hour entry">
+				<div class="plus entry">
+					<div>
+						<i class="fas fa-plus" aria-hidden="true"></i>
+					</div>
+					<div (click)="addInputFiled()" class="">新增選項</div>
+				</div>
+				<button type="submit" class="btn action_button">Submit</button>
+			</div>
+		</div>
+    </form>
+
+	<div id="search-component">
+		<div class="search-result">
+		  <div *ngFor="let hero of trackingOrders" >
+			<a routerLink="/detail/{{hero.order_number}}">
+				<div class="order_card">
+					<div class="order_card_title entry entry_padding">
+						<label>訂單編號</label>
+						<div class="order_number">{{hero.order_number}}</div>
+					</div>
+					<div class="order_card_body entry_padding">
+						<div class="order_cart_item entry">
+							<label>取貨選擇</label>
+							<div class="order_time">{{hero.payment_type}}</div>
+						</div>
+						<div class="order_cart_item">
+							<label>最後時間</label>
+							<div class="order_time">{{ hero.status[0].date }}</div>
+						</div>	
+						<div class="order_cart_item">
+							<label>訂單狀態</label>
+							<div class="order_time">{{ hero.status[0].status }}</div>
+						</div>	
+					</div>
+				</div>
+			</a>
+		  </div>
+		</div>
+	</div>
+
+	<!-- <div id="search-component">	   
+		<ul class="search-result">
+		  <li *ngFor="let hero of gg" >
+			<a routerLink="/detail/{{hero.order_number}}">
+				<div class="order_entry">
+					<div class="order_summary_entry">	
+						<div class="order_summary_info">
+							<div class="order_summary_item">
+								<label>訂單編號</label>
+								<div class="order_number">{{hero.order_number}}</div>
+							</div>
+							<div class="order_summary_item">
+								<label>訂單時間</label>
+								<div class="order_time">{{hero.payment_type}}</div>
+							</div>
+							<div class="order_summary_item">
+								<label>訂購人</label>
+								<div class="customer">{{hero.store_address}}</div>
+							</div>				          
+						</div>
+					</div>
+					<div class="arrow"><i class="fas fa-chevron-right"></i></div>
+				</div>
+			</a>
+		  </li>
+		</ul>
+	</div> -->
+
+</div>
