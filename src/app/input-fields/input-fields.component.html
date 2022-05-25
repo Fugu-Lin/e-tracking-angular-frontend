@@ -1,25 +1,27 @@
 <div class="container">
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" #inputListingRef>
-		<div class="order_number_listing" formArrayName="fileds">
-			<div *ngFor="let quantity of fileds().controls; let i=index" [formGroupName]="i">
-				<div class="entry">
-					<input type="text" class="form-control" formControlName="orderNumber" placeholder="請輸入貨運編號">
-					<div class="trash_div" (click)="removeInputFiled(i)"><i class="far fa-trash-alt" aria-hidden="true"></i></div>
-				</div>
-			</div>
-			<div class="form-entry insert_option business_hour entry">
-				<div class="plus entry">
-					<div>
-						<i class="fas fa-plus" aria-hidden="true"></i>
+	<div #inputListingRef>
+		<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+			<div class="order_number_listing" formArrayName="fileds">
+				<div *ngFor="let quantity of fileds().controls; let i=index" [formGroupName]="i">
+					<div class="entry">
+						<input type="text" class="form-control" formControlName="orderNumber" placeholder="請輸入貨運編號">
+						<div class="trash_div" (click)="removeInputFiled(i)"><i class="far fa-trash-alt" aria-hidden="true"></i></div>
 					</div>
-					<div (click)="addInputFiled()" class="">新增選項</div>
 				</div>
-				<button type="submit" class="btn action_button">Submit</button>
+				<div class="form-entry insert_option business_hour entry">
+					<div class="plus entry">
+						<div>
+							<i class="fas fa-plus" aria-hidden="true"></i>
+						</div>
+						<div (click)="addInputFiled()" class="">新增選項</div>
+					</div>
+					<button type="submit" class="btn action_button">Submit</button>
+				</div>
 			</div>
-		</div>
-    </form>
+		</form>
+	</div>
 
-	<div id="search-component">
+	<div id="search-component" class="none" #searchComponetRef>
 		<div class="search-result">
 		  <div *ngFor="let hero of trackingOrders" >
 			<a routerLink="/detail/{{hero.order_number}}">
@@ -46,34 +48,6 @@
 			</a>
 		  </div>
 		</div>
+		<div (click)="backToInput()" class="back_to_input">返回搜尋列表</div>
 	</div>
-
-	<!-- <div id="search-component">	   
-		<ul class="search-result">
-		  <li *ngFor="let hero of gg" >
-			<a routerLink="/detail/{{hero.order_number}}">
-				<div class="order_entry">
-					<div class="order_summary_entry">	
-						<div class="order_summary_info">
-							<div class="order_summary_item">
-								<label>訂單編號</label>
-								<div class="order_number">{{hero.order_number}}</div>
-							</div>
-							<div class="order_summary_item">
-								<label>訂單時間</label>
-								<div class="order_time">{{hero.payment_type}}</div>
-							</div>
-							<div class="order_summary_item">
-								<label>訂購人</label>
-								<div class="customer">{{hero.store_address}}</div>
-							</div>				          
-						</div>
-					</div>
-					<div class="arrow"><i class="fas fa-chevron-right"></i></div>
-				</div>
-			</a>
-		  </li>
-		</ul>
-	</div> -->
-
 </div>

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { MessageService } from './message.service';
 
-import { Observable, of, empty } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Tracking } from './tracking';
 
@@ -44,14 +44,3 @@ export class ETrackingService {
 		return of();
 	}
 }
-
-// export class orderInterface {
-// 	constructor(
-// 		public order_number: string,
-// 		public store_name: string,
-// 		public store_address: string,
-// 		public pickup_deadline: string,
-// 		public payment_type: string,
-// 		public status: any
-// 	){}
-// }

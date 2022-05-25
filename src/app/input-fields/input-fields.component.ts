@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms'  
-import { Tracking, orderInterface } from '../tracking';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms'  
+import { orderInterface } from '../tracking';
 import { ETrackingService } from '../e-tracking.service';
-import { Observable } from 'rxjs';
 
-import { AfterViewInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -13,13 +12,15 @@ import { AfterViewInit, ElementRef, Renderer2, ViewChild } from '@angular/core';
   	styleUrls: ['./input-fields.component.css']
 })
 
-export class InputFieldsComponent implements OnInit, AfterViewInit{
+export class InputFieldsComponent implements OnInit{
 	
 	trackingOrders?:orderInterface [];
 
 	productForm: FormGroup;
    	
-	@ViewChild('inputListingRef') inputListingRef?: ElementRef;
+	@ViewChild('inputListingRef', { static: true }) inputListingRef!: ElementRef;
+
+	@ViewChild('searchComponetRef', { static: true }) searchComponetRef!: ElementRef;
 
   	constructor(private fb:FormBuilder, private eTrackingService: ETrackingService, private renderer: Renderer2) {
     	this.productForm = this.fb.group({
@@ -27,37 +28,48 @@ export class InputFieldsComponent implements OnInit, AfterViewInit{
     	});
   	}
 	
-	ngAfterViewInit(): void {
-		// console.log(this.inputListingRef);
-		// this.renderer.addClass(this.inputListingRef, "none");
-		const orders = this.getSessionStorageItem("tracking_orders");
-		if(orders !== null){
-
-		}
-	}
-	
 	ngOnInit(): void {
 		const orders = this.getSessionStorageItem("tracking_orders");
 		if(orders !== null){
 			this.trackingOrders = JSON.parse(orders);
+			this.renderer.addClass(this.inputListingRef?.nativeElement, "none");
+			this.renderer.removeClass(this.searchComponetRef?.nativeElement, "none");
+			return;
 		}
+		this.fileds().push(this.newInput());
 	}
 
   	fileds() : FormArray {
     	return this.productForm.get("fileds") as FormArray
   	}
    
-  	onSubmit() { 
-    	this.eTrackingService.trackingOrders(this.productForm.value)
-		.subscribe((resposne) => {
-			this.trackingOrders = resposne;
-			sessionStorage.setItem('tracking_orders', JSON.stringify(resposne));
+  	onSubmit() {
+		let errorMsg    = [];
+		const formValue = this.productForm.value;
+		Object.values<any>(formValue).forEach(val => {
+			val.forEach((va: any) =>{
+				if(va.orderNumber == ""){
+					errorMsg.push("1");
+				}
+			})
 		});
+
+		if(errorMsg.length > 0){
+			alert("請輸入貨運編號");
+		}else{
+			this.eTrackingService.trackingOrders(this.productForm.value)
+			.subscribe((resposne) => {
+				this.trackingOrders = resposne;
+				sessionStorage.setItem('tracking_orders', JSON.stringify(resposne));
+				this.renderer.addClass(this.inputListingRef?.nativeElement, "none");
+				this.renderer.removeClass(this.searchComponetRef?.nativeElement, "none");
+			});
+		}
   	}
 
   	newInput(): FormGroup {
     	return this.fb.group({
-			orderNumber: '',
+			orderNumber: [''],
     	})
   	}
 
@@ -68,19 +80,20 @@ export class InputFieldsComponent implements OnInit, AfterViewInit{
   	removeInputFiled(i:number) {
     	this.fileds().removeAt(i);
   	}
+
+	clearFormArray = (formArray: FormArray) => {
+		formArray.clear();
+	}
 	
 	getSessionStorageItem(key:string){
 		return sessionStorage.getItem(key);
 	}
-}
 
-// export class orderInterface {
-// 	constructor(
-// 		public order_number: string,
-// 		public store_name: string,
-// 		public store_address: string,
-// 		public pickup_deadline: string,
-// 		public payment_type: string,
-// 		public status: any
-// 	){}
-// }
+	backToInput(){
+		this.clearFormArray(this.fileds());
+		sessionStorage.removeItem("tracking_orders");
+		this.fileds().push(this.newInput());
+		this.renderer.removeClass(this.inputListingRef?.nativeElement, "none");
+		this.renderer.addClass(this.searchComponetRef?.nativeElement , "none");
+	}
+}
