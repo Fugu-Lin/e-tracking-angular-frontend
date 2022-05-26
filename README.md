@@ -1,5 +1,7 @@
 # e-tracking-angular-frontend
 
+※ 請注意，本專案非官方推出，如需撤除，請告知。
+
 統一超商交貨便貨態查詢前端
 
 此repository與https://github.com/Fugu-Lin/e-tracking-django-backend 為一組全端的專案，可搭配服用。
