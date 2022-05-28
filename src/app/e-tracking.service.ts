@@ -6,7 +6,8 @@ import { MessageService } from './message.service';
 
 import { Observable, of } from 'rxjs';
 
-import { Tracking } from './tracking';
+import { environment } from './../environments/environment';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +15,7 @@ import { Tracking } from './tracking';
 
 export class ETrackingService {
 	
-	private searchEndPoint = 'http://127.0.0.1:8000/api/search_order/';
+	private searchEndPoint = `${environment.apiUrl}/api/search_order/`;
 	
 	httpOptions = {
 		headers: new HttpHeaders({ 
