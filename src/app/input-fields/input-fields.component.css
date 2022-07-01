@@ -151,15 +151,21 @@ ul{
 }
 
 .back_to_input {
-    border: solid 1px;
+    border: solid 3px;
     border-radius: 5px;
     height: 5vh;
     width: 95%;
     line-height: 2em;
     align-items: center;
     text-align: center;
-    bottom: 5vh;
+    bottom: 2vh;
     position: fixed;
     background: rgb(43 174 100);
-    color: white;
+    color: #fff;
+    border-color: white;
+    outline: 3px solid rgb(43 174 100);
+}
+
+.search-result{
+    padding-bottom: 10vh;
 }

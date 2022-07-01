@@ -37,6 +37,10 @@ export class InputFieldsComponent implements OnInit{
 			return;
 		}
 		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
 	}
 
   	fileds() : FormArray {
@@ -48,14 +52,14 @@ export class InputFieldsComponent implements OnInit{
 		const formValue = this.productForm.value;
 		Object.values<any>(formValue).forEach(val => {
 			val.forEach((va: any) =>{
-				if(va.orderNumber == ""){
-					errorMsg.push("1");
+				if( (va.orderNumber.trim().length != 8) && (va.orderNumber.trim().length != 14) && (va.orderNumber.trim().length != 0) && (va.orderNumber.trim().length != 12)){
+					errorMsg.push(va.orderNumber);
 				}
 			})
 		});
 
 		if(errorMsg.length > 0){
-			alert("請輸入貨運編號");
+			alert("請輸入正確的貨運編號");
 		}else{
 			this.eTrackingService.trackingOrders(this.productForm.value)
 			.subscribe((resposne) => {
@@ -92,6 +96,10 @@ export class InputFieldsComponent implements OnInit{
 	backToInput(){
 		this.clearFormArray(this.fileds());
 		sessionStorage.removeItem("tracking_orders");
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
+		this.fileds().push(this.newInput());
 		this.fileds().push(this.newInput());
 		this.renderer.removeClass(this.inputListingRef?.nativeElement, "none");
 		this.renderer.addClass(this.searchComponetRef?.nativeElement , "none");
